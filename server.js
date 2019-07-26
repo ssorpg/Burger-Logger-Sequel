@@ -16,11 +16,6 @@ app.set('view engine', 'handlebars');
 
 
 
-// ENVIRONMENT
-var env = process.env.NODE_ENV || 'development';
-
-
-
 // ROUTING
 const routes = require('./controllers/burger_controllers');
 
