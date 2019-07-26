@@ -1,0 +1,46 @@
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/index/style.css" type="text/css">
+</style>
+
+<div class="row">
+    <form class="col-lg-3 newBurger">
+        New Burger:<br>
+        <input class="mt-2" type="text" name="burger_name" placeholder="Big Mac">
+        <br>
+        <input class="mt-2" type="submit" value="Cook it!">
+    </form>
+</div>
+
+<div class="row mt-4 justify-content-center">
+    <div class="col-lg-3">
+        <h3>Fresh Burgers</h3>
+        <ul class="uneatenDisplay">
+            {{#each uneatenBurgers}}
+            <li class="mb-2">
+                <button data-id={{id}} class="eatBurger">Eat</button>
+                <img src="/index/burger.png">
+                <div>
+                    {{burger_name}}
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="col-lg-6">
+        <h3>Eaten Burgers</h3>
+        <ul class="eatenDisplay">
+            {{#each eatenBurgers}}
+            <li class="mb-2">
+                <img src="/index/burger.png">
+                <div>
+                    {{burger_name}}
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+<!-- Client Side JS Handling -->
+<script src="/index/client.js"></script>
