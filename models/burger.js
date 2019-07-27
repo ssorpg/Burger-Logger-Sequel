@@ -8,7 +8,7 @@ const sequelize = require('../config/connection.js');
 const Burger = sequelize.define('burgers', {
     burger_name: { type: Sequelize.STRING, allowNull: false },
     devoured: { type: Sequelize.BOOLEAN, defaultValue: false },
-    devoured_by: { type: Sequelize.STRING, allowNull: false }
+    devoured_by: { type: Sequelize.STRING, allowNull: true, defaultValue: 'none' }
 });
 
 Burger.sync();

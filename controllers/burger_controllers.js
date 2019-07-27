@@ -12,10 +12,10 @@ const burger = require('../models/burger');
 // ROUTES
 app.get('/', async (req, res) => {
     try {
-        const burgers = await burger.getAllBurgers();
+        const resBurgers = await burger.findAll();
 
-        const uneatenBurgers = burgers.filter(burger => { return !burger.devoured; });
-        const eatenBurgers = burgers.filter(burger => { return burger.devoured; });
+        const uneatenBurgers = resBurgers.filter(burger => { return !burger.devoured; });
+        const eatenBurgers = resBurgers.filter(burger => { return burger.devoured; });
 
         res.status(200).render('index',
             {
@@ -29,17 +29,45 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.get('/api/burgers', async (req, res) => {
+    try {
+        const resBurgers = await burger.findAll();
+
+        res.status(200).json(resBurgers);
+    }
+    catch (err) {
+        res.status(500).end();
+        throw err;
+    }
+});
+
 app.post('/api/burgers', async (req, res) => {
     if (!req.body.burger_name) {
         return res.status(400).end();
     }
 
     try {
-        await burger.newBurger(req.body);
+        await burger.create(req.body);
 
-        const toRender = await burger.getLastBurger();
+        const resBurger = await burger.findOne({ order: [['id', 'DESC']] }); // Get the last burger
 
-        res.status(200).json(toRender);
+        res.status(200).json(resBurger);
+    }
+    catch (err) {
+        res.status(500).end();
+        throw err;
+    }
+});
+
+app.get('/api/burgers/:id', async (req, res) => {
+    try {
+        const resBurger = await burger.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        res.status(200).json(resBurger);
     }
     catch (err) {
         res.status(500).end();
@@ -49,7 +77,15 @@ app.post('/api/burgers', async (req, res) => {
 
 app.put('/api/burgers/:id', async (req, res) => {
     try {
-        await burger.eatBurger(req.params.id);
+        await burger.update(
+            {
+                devoured: true
+            },
+            {
+                where: {
+                    id: req.params.id
+                }
+            });
 
         res.status(200).end();
     }
