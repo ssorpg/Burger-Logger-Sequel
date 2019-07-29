@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
     try {
         const resBurgers = await Burger.findAll({ // Get the 10 latest burgers
             limit: 10,
-            order: [ [ 'createdAt', 'DESC' ]],
+            order: [['createdAt', 'DESC']],
             include: [User]
         });
 
