@@ -65,6 +65,7 @@ Here is a list of dependencies for this project:
 * Express
 * Express-Handlebars
 * MySQL2
+* Sequelize
 
 <h3>HTML Embeds</h3>
 
