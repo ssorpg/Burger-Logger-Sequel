@@ -5,33 +5,15 @@ const app = express.Router();
 
 
 // MODELS
-const burger = require('../models/burger');
+const Burger = require('../models/burger');
+const User = require('../models/user');
 
 
 
 // ROUTES
-app.get('/', async (req, res) => {
-    try {
-        const resBurgers = await burger.findAll();
-
-        const uneatenBurgers = resBurgers.filter(burger => { return !burger.devoured; });
-        const eatenBurgers = resBurgers.filter(burger => { return burger.devoured; });
-
-        res.status(200).render('index',
-            {
-                uneatenBurgers: uneatenBurgers,
-                eatenBurgers: eatenBurgers
-            });
-    }
-    catch (err) {
-        res.status(500).end();
-        throw err;
-    }
-});
-
 app.get('/api/burgers', async (req, res) => {
     try {
-        const resBurgers = await burger.findAll();
+        const resBurgers = await Burger.findAll();
 
         res.status(200).json(resBurgers);
     }
@@ -47,9 +29,9 @@ app.post('/api/burgers', async (req, res) => {
     }
 
     try {
-        await burger.create(req.body);
+        await Burger.create(req.body);
 
-        const resBurger = await burger.findOne({ order: [['id', 'DESC']] }); // Get the last burger
+        const resBurger = await Burger.findOne({ order: [['id', 'DESC']] }); // Get the latest burger
 
         res.status(200).json(resBurger);
     }
@@ -61,7 +43,7 @@ app.post('/api/burgers', async (req, res) => {
 
 app.get('/api/burgers/:id', async (req, res) => {
     try {
-        const resBurger = await burger.findOne({
+        const resBurger = await Burger.findOne({
             where: {
                 id: req.params.id
             }
@@ -77,9 +59,21 @@ app.get('/api/burgers/:id', async (req, res) => {
 
 app.put('/api/burgers/:id', async (req, res) => {
     try {
-        await burger.update(
+        let devouredBy = req.query.devoured_by || 'Anonymous';
+
+        console.log(req.query.devoured_by);
+
+        devouredBy = await User.findOne({
+            where: {
+                user_name: devouredBy
+            }
+        });
+
+        console.log(devouredBy);
+
+        await Burger.update(
             {
-                devoured: true
+                devoured_by: devouredBy.id
             },
             {
                 where: {

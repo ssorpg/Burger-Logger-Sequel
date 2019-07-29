@@ -1,44 +1,67 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/index/style.css" type="text/css">
-</style>
 
-<div class="row">
-    <form class="col-lg-3 newBurger">
-        New Burger:<br>
-        <input class="mt-2" type="text" name="burger_name" placeholder="Big Mac">
-        <br>
-        <input class="mt-2" type="submit" value="Cook it!">
-    </form>
+<div class="initVis visibile">
+    <div class="row">
+        <form class="col-lg-3 userName">
+            Select A User Name:<br>
+            <input class="mt-2 user_name" type="text" name="user_name" placeholder="Anonymous">
+            <br>
+            <input class="mt-2" type="submit" value="Select User">
+        </form>
+    </div>
 </div>
 
-<div class="row mt-4 justify-content-center">
-    <div class="col-lg-3">
-        <h3>Fresh Burgers</h3>
-        <ul class="uneatenDisplay">
-            {{#each uneatenBurgers}}
-            <li class="mb-2">
-                <button data-id={{id}} class="eatBurger">Eat</button>
-                <img src="/index/burger.png">
-                <div>
-                    {{burger_name}}
-                </div>
-            </li>
-            {{/each}}
-        </ul>
+<div class="initInvis invisible">
+    <div class="row logInDiv">
+        <div class="logInName">Logged in as:</div>
+        <div>
+            <button class="logOut">Log Out</button>
+        </div>
     </div>
 
-    <div class="col-lg-6">
-        <h3>Eaten Burgers</h3>
-        <ul class="eatenDisplay">
-            {{#each eatenBurgers}}
-            <li class="mb-2">
-                <img src="/index/burger.png">
-                <div>
-                    {{burger_name}}
-                </div>
-            </li>
-            {{/each}}
-        </ul>
+    <div class="row">
+        <form class="col-lg-3 newBurger">
+            New Burger:<br>
+            <input class="mt-2" type="text" name="burger_name" placeholder="Big Mac">
+            <br>
+            <input class="mt-2" type="submit" value="Cook it!">
+        </form>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <table border="1">
+                <colgroup>
+                    <col style="width: 73px;"> {{!-- The width of an eat button --}}
+                    <col style="width: calc( 66% - ( 2 / 3 * 73px ) );">
+                    <col style="width: calc( 33% - ( 1 / 3 * 73px ) );">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>The Latest Burgers</th>
+                        <th>Eaten By</th>
+                    </tr>
+                    {{#each burgers}}
+                    <tr>
+                        <td>
+                            {{#unless devoured_by}}
+                            <button data-id={{id}} class="eatBurger">Eat</button>
+                            {{/unless}}
+                        </td>
+                        <td>
+                            <img src="/index/burger.png">
+                            {{burger_name}}
+                        </td>
+                        <td>
+                            {{user.user_name}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

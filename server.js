@@ -17,9 +17,13 @@ app.set('view engine', 'handlebars');
 
 
 // ROUTING
-const routes = require('./controllers/burger_controllers');
+const htmlRoutes = require('./controllers/html_controllers');
+const burgerRoutes = require('./controllers/burger_controllers');
+const userRoutes = require('./controllers/user_controllers');
 
-app.use(routes);
+app.use(htmlRoutes);
+app.use(burgerRoutes);
+app.use(userRoutes);
 
 
 
