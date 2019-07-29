@@ -1,4 +1,4 @@
-# The Burger Logger
+# The Burger Logger Sequel
 
 Burgers taste great! But walking to a restaurant to order one can sometimes take too much time, effort, and money. Burger Logger is here to save the day! Eat virtual burgers from the comfort of your own home.
 
