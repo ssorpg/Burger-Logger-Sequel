@@ -24,8 +24,7 @@ app.get('/api/users', async (req, res) => {
 
 app.post('/api/users', async (req, res) => {
     if (req.body.user_name.length < 1 || req.body.user_name.length > 20) {
-        res.status(400).send('Please enter a username between 1 and 20 characters');
-        return;
+        return res.status(400).send('Please enter a username between 1 and 20 characters');
     }
 
     try {
