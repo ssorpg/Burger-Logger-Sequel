@@ -8,6 +8,9 @@ h1, h3 {
     flex-direction: column;
     text-align: right;
 }
+.err {
+    color: rgb(255, 0, 0);
+}
 table {
     width: 100%;
     background-color:#ffffcc;

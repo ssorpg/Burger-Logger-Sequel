@@ -25,23 +25,31 @@ $(document).ready(function () {
             method: 'POST',
             data: $(event.target).serialize()
         })
-            .then(res => {
-                user_name = $('.user_name').val();
-                localStorage.setItem('burgerUsername', user_name);
+            .then(
+                () => {
+                    user_name = $('.user_name').val();
+                    localStorage.setItem('burgerUsername', user_name);
 
-                pageSetup(user_name);
-            });
+                    pageSetup(user_name);
+                },
+                res => {
+                    $('.usernameErr').text(res.responseText);
+                });
     });
 
     $('.newBurger').submit(event => {
         event.preventDefault();
+        $('.burgerErr').text('');
 
         $.ajax('/api/burgers', {
             method: 'POST',
             data: $(event.target).serialize()
         })
-            .then(res => {
+            .then(() => {
                 location.reload();
+            },
+            res => {
+                $('.burgerErr').text(res.responseText);
             });
     });
 

@@ -24,8 +24,8 @@ app.get('/api/burgers', async (req, res) => {
 });
 
 app.post('/api/burgers', async (req, res) => {
-    if (!req.body.burger_name) {
-        return res.status(400).end();
+    if (req.body.burger_name.length < 1 || req.body.burger_name.length > 20) {
+        return res.status(400).send('Please enter a burger name between 1 and 20 characters');
     }
 
     try {
