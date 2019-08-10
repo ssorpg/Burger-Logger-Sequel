@@ -10,7 +10,7 @@ Burgers taste great! But walking to a restaurant to order one can sometimes take
 
 <h3>Online</h3>
 
-Visit https://sheltered-fortress-62731.herokuapp.com/ and eat as many burgers as you want with a preset Burger Logger!
+Visit https://burgerloggersequel-ssorpg.herokuapp.com/ and eat as many burgers as you want with a preset Burger Logger!
 
 <br>
 
